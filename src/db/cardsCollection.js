@@ -30,7 +30,7 @@ async function savePlayerDeck(userId, cards) {
   const db = await mongoConnector.connectToDatabase();
   const cardDocuments = cards.cards.map((card) => ({
     userId: new ObjectId(userId),
-    cardId: card, // Adjust based on whether 'card' needs to be transformed to an ObjectId
+    cardId: card,
   }));
   await db.collection("decks").deleteMany({ userId: new ObjectId(userId) });
   return db.collection("decks").insertMany(cardDocuments);

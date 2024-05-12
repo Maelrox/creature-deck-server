@@ -76,7 +76,7 @@ function handleMessage(data, decoded, ws) {
       handleCreateGame(ws);
       break;
     case "completeDungeon":
-      handleCompleteDungeon(data, ws);
+      handleCompleteDungeon(decoded, data, ws);
       break;
     case "getCards":
       handleGetCards(decoded, ws);
@@ -85,10 +85,10 @@ function handleMessage(data, decoded, ws) {
       handleGetDungeons(data, ws);
       break;
     case "endBattle":
-      handleEndBattle(data, ws);
+      handleEndBattle(decoded, ws);
       break;
     case "rewardCard":
-      handleRewardCard(data, ws);
+      handleRewardCard(decoded, data, ws);
       break;
     case "registerUser":
       handleRegisterUser(data, ws);
@@ -97,7 +97,6 @@ function handleMessage(data, decoded, ws) {
       handleLoginUser(data, ws);
       break;
     case "savePlayerDeck":
-      console.log("Saving player deck");
       handleSavePlayerDeck(decoded, data, ws);
       break;
   }

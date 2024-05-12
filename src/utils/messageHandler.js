@@ -9,8 +9,8 @@ export async function handleCreateGame(ws) {
   ws.send(response.formatResponse("gameCreated", { gameId }));
 }
 
-export async function handleCompleteDungeon(data, ws) {
-  dungeonsAPI.completeDungeon(data.playerId, data.dungeonName, data.level);
+export async function handleCompleteDungeon(decoded, data, ws) {
+  dungeonsAPI.completeDungeon(decoded.userId, data.dungeonName, data.level);
   ws.send(response.formatResponse("dungeonComplete", true));
 }
 
@@ -25,13 +25,13 @@ export async function handleGetDungeons(data, ws) {
   ws.send(response.formatResponse("getDungeons", dungeonsResponse));
 }
 
-export async function handleEndBattle(data, ws) {
-  await cardAPI.updateCardExperience(data.playerId, 1000);
+export async function handleEndBattle(decoded, ws) {
+  await cardAPI.updateCardExperience(decoded.userId, 1000);
   ws.send(response.formatResponse("endBattle", true));
 }
 
-export async function handleRewardCard(data, ws) {
-  await cardAPI.insertCard(data.playerId, data.card, data.level);
+export async function handleRewardCard(decoded, data, ws) {
+  await cardAPI.insertCard(decoded.userId, data.card, data.level);
   ws.send(response.formatResponse("insertCard", true));
 }
 
