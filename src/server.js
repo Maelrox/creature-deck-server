@@ -23,6 +23,12 @@ server.on("connection", function (ws) {
   ws.on("message", async function (message) {
     try {
       const data = JSON.parse(message);
+      if (data && data.type === "HELLO") {
+        ws.send("HELLO");
+        return;
+      }
+      console.log(data);
+
       let decoded = null;
 
       if (data.token) {
@@ -30,7 +36,6 @@ server.on("connection", function (ws) {
       }
 
       manageSession(decoded, ws);
-
       if (!isAuthorized(data, ws)) {
         return;
       }
@@ -82,7 +87,7 @@ function handleMessage(data, decoded, ws) {
       handleGetCards(decoded, ws);
       break;
     case "getDungeons":
-      handleGetDungeons(data, ws);
+      handleGetDungeons(decoded, ws);
       break;
     case "endBattle":
       handleEndBattle(decoded, ws);

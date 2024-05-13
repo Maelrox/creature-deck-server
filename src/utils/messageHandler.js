@@ -20,8 +20,8 @@ export async function handleGetCards(decoded, ws) {
   ws.send(response.formatResponse("getCards", cardsResponse));
 }
 
-export async function handleGetDungeons(data, ws) {
-  const dungeonsResponse = await dungeonsAPI.getDungeonsOfUser(data.playerId);
+export async function handleGetDungeons(decoded, ws) {
+  const dungeonsResponse = await dungeonsAPI.getDungeonsOfUser(decoded.userId);
   ws.send(response.formatResponse("getDungeons", dungeonsResponse));
 }
 
@@ -55,6 +55,7 @@ export async function handleRegisterUser(data, ws) {
 export async function handleLoginUser(data, ws) {
   const loginUserResponse = await userAPI.loginUser(data.userId, data.password);
   if (!loginUserResponse.message) {
+    console.log(loginUserResponse);
     ws.send(response.formatResponse("loginUserResponse", loginUserResponse));
   } else {
     ws.send(
