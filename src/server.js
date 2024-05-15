@@ -21,8 +21,8 @@ const SECRET_KEY = "2=A=b&SXf:v=inX";
 
 // Load SSL certificate and key
 const serverOptions = {
-  cert: fs.readFileSync("./cert.pem"),
-  key: fs.readFileSync("./key.pem"),
+  cert: fs.readFileSync("/etc/letsencrypt/live/yourdomain.com/fullchain.pem"),
+  key: fs.readFileSync("/etc/letsencrypt/live/yourdomain.com/privkey.pem"),
 };
 
 // Create HTTPS server
