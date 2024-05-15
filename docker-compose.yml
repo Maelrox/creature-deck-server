@@ -12,7 +12,7 @@ services:
       - webnet
 
   nodeapp:
-    build: ./nodeapp
+    build: .
     container_name: nodeapp
     ports:
       - "3000:3000"
