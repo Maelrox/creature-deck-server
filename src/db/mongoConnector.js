@@ -1,6 +1,6 @@
 import { MongoClient } from "mongodb";
 
-const url = "mongodb://localhost:27017"; // MongoDB URL
+const url = "mongodb://172.17.0.1:27017"; // MongoDB URL
 const dbName = "creaturedeck"; // Database name
 
 const client = new MongoClient(url, {
