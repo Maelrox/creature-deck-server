@@ -17,7 +17,7 @@ COPY . .
 COPY cert.pem key.pem /usr/src/app/
 
 # Expose the port the app runs on
-EXPOSE 3300
+EXPOSE 3000
 
 # Command to run the application
 CMD ["node", "src/server.js"]
