@@ -64,7 +64,7 @@ describe("Dungeon API", () => {
     });
   });
   describe("Get Dungeons", () => {
-    it("it should return a list of dungeons for an user", async () => {
+    it("should return a list of dungeons for an user", async () => {
       const userId = "6636657680527768e73629a0";
       const result = await dungeonAPI.getDungeonsOfUser(userId);
       expect(result).toBeDefined();
@@ -83,6 +83,18 @@ describe("Dungeon API", () => {
         dungeonAPI.completeDungeon(userId, dungeonName, level)
       ).rejects.toThrow("Database Error");
 
+      expect(dungeonsDB.updateDungeon).toHaveBeenCalledTimes(2);
+    });
+    it("ignore dungeon update when it is already completed", async () => {
+      const userId = "morgox";
+      const dungeonName = "Mystic Cave";
+      const level = 4;
+      const result = await dungeonAPI.completeDungeon(
+        userId,
+        dungeonName,
+        level
+      );
+      expect(result.level + 1).toBe(level);
       expect(dungeonsDB.updateDungeon).toHaveBeenCalledTimes(2);
     });
   });

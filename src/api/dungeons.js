@@ -1,8 +1,19 @@
 import dungeonsDB from "../db/dungeonsCollection.js";
 import { handleError } from "../utils/errorHandler.js"; // Import as a named import
 
+const maxLevelAllowed = 3;
+
 // Set a dungeon level as completed for a specific userId
 async function completeDungeon(userId, dungeonName, level) {
+  if (level > maxLevelAllowed) {
+    let result = {
+      success: false,
+      level: 3,
+      dungeon: dungeonName,
+      message: "Dungeon is already completed",
+    };
+    return result;
+  }
   return dungeonsDB
     .updateDungeon(userId, dungeonName, level)
     .then((result) => {

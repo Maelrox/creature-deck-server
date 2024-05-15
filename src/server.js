@@ -1,5 +1,7 @@
 import { WebSocketServer } from "ws";
 import jwt from "jsonwebtoken";
+import fs from "fs";
+import https from "https";
 
 import mongoConnector from "../src/db/mongoConnector.js";
 import response from "./utils/response.js";
@@ -16,8 +18,21 @@ import {
 } from "./utils/messageHandler.js";
 
 const SECRET_KEY = "2=A=b&SXf:v=inX";
-const server = new WebSocketServer({ port: 3000 });
+
+// Load SSL certificate and key
+const serverOptions = {
+  cert: fs.readFileSync("./cert.pem"),
+  key: fs.readFileSync("./key.pem"),
+};
+
+// Create HTTPS server
+const httpsServer = https.createServer(serverOptions);
+const server = new WebSocketServer({ server: httpsServer });
 const sessions = new Map();
+
+httpsServer.listen(3000, () => {
+  console.log("HTTPS Server is running on port 3000");
+});
 
 server.on("connection", function (ws) {
   ws.on("message", async function (message) {
