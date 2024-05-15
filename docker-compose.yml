@@ -5,7 +5,7 @@ services:
     image: certbot/certbot
     container_name: certbot
     ports:
-      - "80:80"
+      -"80:80"
     volumes:
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot

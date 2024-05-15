@@ -23,6 +23,7 @@ In case you don't have the certificates create them using openssl req -x509 -new
 install nodejs 21
 install mongodb 4.4
 install docker
+install docker compose 2.3.3
 
 ## Get certificates from certbot container
 
@@ -32,6 +33,10 @@ docker run -it --rm --name certbot \
  certbot/certbot certonly --standalone \
  -d creature-deck.mooo.com \
  --non-interactive --agree-tos -m oscarquiroz@gmail.com
+
+## Standalone run
+
+docker-compose -f docker-compose-certbot.yml run --rm certbot certonly --standalone -d creature-deck.mooo.com --non-interactive --agree-tos -m oscarquiroz@gmail.com
 
 ## Deploy it using Docker
 
