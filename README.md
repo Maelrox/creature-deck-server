@@ -25,18 +25,14 @@ install mongodb 4.4
 install docker
 install docker compose 2.3.3
 
-## Get certificates from certbot container
+## Get certificates from certbot container standalone
 
-docker run -it --rm --name certbot \
- -v ~/docker/certbot/conf:/etc/letsencrypt \
- -v ~/docker/certbot/www:/var/www/certbot \
- certbot/certbot certonly --standalone \
- -d creature-deck.mooo.com \
- --non-interactive --agree-tos -m oscarquiroz@gmail.com
+docker run -it --rm -p 80:80 --name certbot -v ~/docker/certbot/conf:/etc/letsencrypt -v ~/docker/certbot/www:/var/www/certbot certbot/certbot certonly
+--standalone -d creature-deck.mooo.com --non-interactive --agree-tos -m oscarquiroz@gmail.com
 
-## Standalone run
+## Run service keeps certificate updated
 
-docker-compose -f docker-compose-certbot.yml run --rm certbot certonly --standalone -d creature-deck.mooo.com --non-interactive --agree-tos -m oscarquiroz@gmail.com
+docker compose run --rm certbot certonly --webroot --webroot-path=/var/www/certbot -d creature-deck.mooo.com --non-interactive --agree-tos -m oscarquiroz@gmail.com
 
 ## Deploy it using Docker
 
