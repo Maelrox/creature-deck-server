@@ -1,6 +1,8 @@
 import { MongoClient } from "mongodb";
 
-const url = "mongodb://host.docker.internal:27017"; // MongoDB URL
+//const url = "mongodb://host.docker.internal:27017"; // MongoDB URL using host docker
+const url = "mongodb://172.23.0.1:27017"; // MongoDB URL using docker host ip
+
 const dbName = "creaturedeck"; // Database name
 
 const client = new MongoClient(url, {
