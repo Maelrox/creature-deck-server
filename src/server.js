@@ -19,7 +19,7 @@ import {
 
 const SECRET_KEY = "2=A=b&SXf:v=inX";
 
-// Load SSL certificate and key
+// Load SSL certificate and key on ubuntu
 const serverOptions = {
   cert: fs.readFileSync(
     "/etc/letsencrypt/live/creature-deck.mooo.com/fullchain.pem"
@@ -28,6 +28,13 @@ const serverOptions = {
     "/etc/letsencrypt/live/creature-deck.mooo.com/privkey.pem"
   ),
 };
+
+/* Load Signed Cert no working with unity
+const serverOptions = {
+  cert: fs.readFileSync("./cert.pem"),
+  key: fs.readFileSync("./key.pem"),
+};
+*/
 
 // Create HTTPS server
 const httpsServer = https.createServer(serverOptions);
@@ -41,12 +48,12 @@ httpsServer.listen(3000, () => {
 server.on("connection", function (ws) {
   ws.on("message", async function (message) {
     try {
+      console.log(message);
       const data = JSON.parse(message);
       if (data && data.type === "HELLO") {
         ws.send("HELLO");
         return;
       }
-      console.log(data);
 
       let decoded = null;
 

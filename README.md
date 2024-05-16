@@ -20,7 +20,6 @@ In case you don't have the certificates create them using openssl req -x509 -new
 
 ## On ubuntu server
 
-install nodejs 21
 install mongodb 4.4
 install docker
 install docker compose 2.3.3
@@ -30,11 +29,17 @@ install docker compose 2.3.3
 docker run -it --rm -p 80:80 --name certbot -v ~/docker/certbot/conf:/etc/letsencrypt -v ~/docker/certbot/www:/var/www/certbot certbot/certbot certonly
 --standalone -d creature-deck.mooo.com --non-interactive --agree-tos -m oscarquiroz@gmail.com
 
+or it using docker compose certbot
+docker compose -f docker-compose-standalone.yml up --build
+
 ## Run service keeps certificate updated
 
 docker compose run --rm certbot certonly --webroot --webroot-path=/var/www/certbot -d creature-deck.mooo.com --non-interactive --agree-tos -m oscarquiroz@gmail.com
 
-## Deploy it using Docker
+## Deploy it using docker compose
 
-docker build -t creature-deck-server .
-docker run -p -d externalPort:internalPort tag
+docker compose up --build -d
+
+## Clean
+
+docker-compose rm -f
